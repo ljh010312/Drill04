@@ -95,7 +95,6 @@ frame = 0
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 speed = 10
 
-# fill here
 while running:
     clear_canvas()
     tuk.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
