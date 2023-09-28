@@ -42,23 +42,34 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 running = False
             elif event.key == SDLK_RIGHT:
-                h_dir = 1
+                h_dir += 1
+            elif event.key == SDLK_LEFT:
+                h_dir -= 1
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
-                h_dir = 0
-
+                h_dir -= 1
+            elif event.key == SDLK_LEFT:
+                h_dir += 1
 def character_move():
     global running, h_dir, frame, x,y
 
     if h_dir == 1:
         character.clip_draw(move_right[frame].x, move_right[frame].y, move_right[frame].w, move_right[frame].h , x, y)
         frame = (frame + 1) % 8
-        x += speed
+        x += h_dir * speed
         if x > TUK_WIDTH:
             x -= speed
     elif h_dir == 0:
         frame = (frame + 1) % 4
         character.clip_draw(move_idle[frame].x, move_idle[frame].y, move_idle[frame].w, move_idle[frame].h, x, y)
+    elif h_dir == -1:
+        character.clip_composite_draw(move_right[frame].x, move_right[frame].y, move_right[frame].w, move_right[frame].h, 0, 'h', x, y, move_right[frame].w, move_right[frame].h)
+        frame = (frame + 1) % 8
+        x += h_dir * speed
+        if x < 0:
+            x += speed
+
+
 
 running = True
 h_dir = 0
